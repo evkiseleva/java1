@@ -64,7 +64,7 @@ public class MyContainer {
     }
     public void addElem(int elem, int index)
     {
-        if (index < size+1)
+        if (index < size+1 && index >= 0)
         {
             reSize(size +1);
             for(int i = size-1 ; i > index ; i--)
@@ -79,7 +79,7 @@ public class MyContainer {
     public int deleteElem(int index)
     {
         int result = 0;
-        if (index<size)
+        if (index<size && index >= 0)
         {
             result = elements[index];
             for(int i = index; i< size -1; i++)

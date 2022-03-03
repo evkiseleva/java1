@@ -14,61 +14,97 @@ public class MyContainer {
     }
     public int getElem(int index)
     {
-        return elements[index];
+        int result = 0;
+        if(index < size && index >= 0)
+            result = elements[index];
+        else
+            System.out.println("Ошибка доступа, индекс вышел за границу. По умолчанию выведен 0");
+        return result;
     }
     public void setElem(int elem, int index)
     {
-        elements[index] = elem;
+        if(index < size && index >= 0)
+            elements[index] = elem;
+        else
+            System.out.println("Ошибка доступа, индекс вышел за границу");
     }
-    public void reSize(int newSize)
+    public int getSize()
     {
-        int[] newElements = new int[newSize];
-        if(newSize < size)
+        return size;
+    }
+    private void reSize(int newSize)
+    {
+        if(newSize>0)
         {
-            for(int i = 0; i < newSize; i++)
+            int[] newElements = new int[newSize];
+            if(newSize < size)
             {
-                newElements[i] = elements[i];
+                for(int i = 0; i < newSize; i++)
+                {
+                    newElements[i] = elements[i];
+                }
             }
+            else
+            {
+                for(int i = 0; i < size; i++)
+                {
+                    newElements[i] = elements[i];
+                }
+                for(int i = size; i < newSize; i++ )
+                {
+                    newElements[i] = 0;
+                }
+            }
+            elements = newElements;
+            size = newSize;
         }
         else
-        {
-            for(int i = 0; i < size; i++)
-            {
-                newElements[i] = elements[i];
-            }
-            for(int i = size; i < newSize; i++ )
-            {
-                newElements[i] = 0;
-            }
-        }
-        elements = newElements;
-        size = newSize;
+            System.out.println("Ошибка. Введено отрицательное число");
+
     }
     public void addElem(int elem, int index)
     {
-        reSize(size +1);
-        for(int i = index+1; i < size; i++)
+        if (index < size+1)
         {
-            elements[i]=elements[i-1];
+            reSize(size +1);
+            for(int i = size-1 ; i > index ; i--)
+            {
+                elements[i]=elements[i-1];
+            }
+            elements[index] = elem;
         }
-        elements[index] = elem;
+        else
+            System.out.println("Ошибка");
     }
     public int deleteElem(int index)
     {
-        int result = elements[index];
-        for(int i = index; i< size -1; i++)
+        int result = 0;
+        if (index<size)
         {
-            elements[i]=elements[i+1];
+            result = elements[index];
+            for(int i = index; i< size -1; i++)
+            {
+                elements[i]=elements[i+1];
+            }
+            reSize(size -1);
         }
-        reSize(size -1);
+        else
+            System.out.println("Ошибка");
         return result;
     }
     public void clear()
     {
-        for(int i = 0; i< size; i++)
+        for(int i = 0; i < size; i++)
         {
             System.out.println(elements[i]);
             elements[i]=0;
+        }
+    }
+    public void printElements()
+    {
+        for(int i = 0; i < size; i++)
+        {
+            System.out.println(elements[i]);
         }
     }
 }

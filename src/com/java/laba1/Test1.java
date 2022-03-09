@@ -1,5 +1,7 @@
 package com.java.laba1;
-
+/**
+ * Класс для тестирования класса MyConteiner
+ * */
 public class Test1 {
     public void test()
     {
